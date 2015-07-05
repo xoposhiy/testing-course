@@ -8,6 +8,9 @@ namespace Kontur.Courses.Testing.Patterns.Specifications
 {
 	public class MarkdownProcessor
 	{
+		/// На этом примере удобно попрактиковаться в создании параметризованных тестов.
+		/// См. описание задачи в файле Markdown.txt
+		/// Сделайте серию тестов.
 		public string Render(string input)
 		{
 			var emReplacer = new Regex(@"([^\w\\]|^)_(.*?[^\\])_(\W|$)");
@@ -45,7 +48,5 @@ namespace Kontur.Courses.Testing.Patterns.Specifications
 		{
 			return md.Render(input);
 		}
-
-		
 	}
 }
