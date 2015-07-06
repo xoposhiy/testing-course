@@ -10,7 +10,7 @@ namespace Kontur.Courses.Testing.Patterns.Antipatterns
 		[Test]
 		public void Test()
 		{
-			var lines = File.ReadAllLines(@"D:\work\edu\testing-course\Kontur.Courses.Testing.Patterns\bin\Debug\data.txt")
+			var lines = File.ReadAllLines(@"C:\work\edu\testing-course\Patterns\bin\Debug")
 				.Select(line => line.Split(' '))
 				.Select(line => new { push = line[0] == "push", value = line[1] });
 
