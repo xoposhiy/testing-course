@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace ConwaysGameOfLife
 {
@@ -62,6 +64,16 @@ namespace ConwaysGameOfLife
 			yield return new Point(x + 1, y - 1);
 			yield return new Point(x + 1, y);
 			yield return new Point(x + 1, y + 1);
+		}
+
+		public override string ToString()
+		{
+			var rows = Enumerable.Range(0, height)
+				.Select(y => 
+					string.Join("",
+						Enumerable.Range(0, width).Select(x => cellAge[x, y] > 0 ? "#" : " ")
+				));
+			return string.Join("\n", rows);
 		}
 	}
 }

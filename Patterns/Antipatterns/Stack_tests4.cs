@@ -7,7 +7,7 @@ namespace Kontur.Courses.Testing.Patterns.Antipatterns
 	public class Stack_tests4
 	{
 		[Test]
-		public void Test()
+		public void TestPop()
 		{
 			var stack = new Stack<int>(new[] { 1, 2, 3, 4, 5 });
 			var result = stack.Pop();

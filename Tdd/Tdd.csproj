@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BowlingGame.cs" />
+    <Compile Include="LifeGame.cs" />
     <Compile Include="StringCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
