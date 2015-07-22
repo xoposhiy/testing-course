@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="ConsoleUi.cs" />
     <Compile Include="ConwaysLife.cs" />
-    <Compile Include="ConwaysLife_should.cs" />
+    <Compile Include="ConwaysLife_tests.cs" />
     <Compile Include="IGameUi.cs" />
     <Compile Include="IReadonlyField.cs" />
     <Compile Include="Point.cs" />

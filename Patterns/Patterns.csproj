@@ -48,6 +48,8 @@
     <Compile Include="Antipatterns\Stack_tests1.cs" />
     <Compile Include="Antipatterns\Stack_tests3.cs" />
     <Compile Include="Antipatterns\Stack_tests4.cs" />
+    <Compile Include="Exercise\TextDocument.cs" />
+    <Compile Include="Exercise\TextDocumentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
