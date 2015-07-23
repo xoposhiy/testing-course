@@ -1,13 +1,16 @@
-﻿using System.Text;
-
-namespace LegacyCode
+﻿namespace LegacyCode
 {
-	public class NewRateEmailMessageManager
+	public class NewRateEmailMessager
 	{
-		public string CreateMessageBody(string customerName, AccountType accountType,
-			string accountNumber, bool showAccountNumber, decimal newRate)
+		public void SendMessage(string customerName, AccountType accountType, decimal newRate)
 		{
-			var sb = new StringBuilder();
+			var logger = ManagerKit.Logger;
+			logger.Log("Sending new rate email");
+			logger.Log("server address: " + ((EmailSender) ManagerKit.EmailSender).MailServer);
+			var message = new EmailMessage();
+
+			message.Subject = "New rate!";
+			var sb = message.Body;
 
 			sb.AppendFormatLine("Dear {0}", customerName);
 			sb.AppendLine();
@@ -26,19 +29,14 @@ namespace LegacyCode
 					break;
 			}
 
-			if (showAccountNumber)
-			{
-				sb.AppendFormatLine(" with the account number {0}.", accountNumber);
-			}
-			else
-			{
-				sb.AppendLine(".");
-			}
-
 			sb.AppendLine();
 			sb.AppendLine();
 
 
+			if (ManagerKit.Config.IncreaseRate)
+			{
+				newRate *= ManagerKit.Config.IncreaseRateFactor;
+			}
 			switch (accountType)
 			{
 				case AccountType.Cheque:
@@ -53,14 +51,15 @@ namespace LegacyCode
 						"The interest rate for which you will be charged for new purchases is now {0}%", newRate);
 					break;
 			}
+			if (newRate > 0.1m)
+				message.Important = true;
 
 
 			sb.AppendLine();
 			sb.AppendLine();
 
 			sb.AppendLine("Kind regards - your bank.");
-
-			return sb.ToString();
+			ManagerKit.EmailSender.SendMessage(message);
 		}
 	}
 }
