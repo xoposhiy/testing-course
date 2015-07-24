@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife
 		public void singleCell_dissapear_afterStep()
 		{
 			var game = new ConwaysLife(10, 10, new FakeUi());
-			game.SetAge(new Point(1, 1), 1);
+			game.ReviveCells(new Point(1, 1));
 
 			game.Step();
 

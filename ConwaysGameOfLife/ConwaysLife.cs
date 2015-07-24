@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ConwaysGameOfLife
 {
@@ -30,9 +28,16 @@ namespace ConwaysGameOfLife
 			return cellAge[(x + width) % width, (y + height) % height];
 		}
 
-		public void SetAge(Point pos, int isAlive)
+		public void ReviveCells(params Point[] points)
 		{
-			cellAge[(pos.X + width) % width, (pos.Y + height) % height] = isAlive;
+			foreach (var pos in points)
+				cellAge[(pos.X + width) % width, (pos.Y + height) % height] = 1;
+			ui.Update(this);
+		}
+
+		public void SetAge(Point pos, int age)
+		{
+			cellAge[(pos.X + width) % width, (pos.Y + height) % height] = age;
 		}
 
 		public void Step()
