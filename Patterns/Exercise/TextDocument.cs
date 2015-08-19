@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kontur.Courses.Testing.Patterns.Exercise
 {
@@ -16,9 +12,11 @@ namespace Kontur.Courses.Testing.Patterns.Exercise
 			Text = text;
 		}
 
-		public ICommand MakeReplaceCommand(int startIndex, int len, string newText)
+		public ICommand Replace(int startIndex, int len, string newText)
 		{
-			return new ReplaceCommand(this, startIndex, len, newText);
+			var command = new ReplaceCommand(this, startIndex, len, newText);
+			command.Do();
+			return command;
 		}
 
 		class ReplaceCommand : ICommand
@@ -28,6 +26,7 @@ namespace Kontur.Courses.Testing.Patterns.Exercise
 			private readonly int len;
 			private readonly string newText;
 			private readonly string oldText;
+			private bool Done;
 
 			public ReplaceCommand(TextDocument textDocument, int startIndex, int len, string newText)
 			{
@@ -40,20 +39,22 @@ namespace Kontur.Courses.Testing.Patterns.Exercise
 
 			public void Do()
 			{
-				if (textDocument.Text.Substring(startIndex, len) != oldText)
-					throw new InvalidOperationException();
+				if (Done)
+					throw new InvalidOperationException("Can't do command because it was done already");
 				textDocument.Text = textDocument.Text.Substring(0, startIndex)
 					+ newText + textDocument.Text.Substring(startIndex + len);
 				textDocument.EditsCount++;
+				Done = true;
 			}
 
 			public void Undo()
 			{
-				if (textDocument.Text.Substring(startIndex, newText.Length) != newText)
-					throw new InvalidOperationException();
+				if (!Done)
+					throw new InvalidOperationException("Can't undo command because it was not done yet");
 				textDocument.Text = textDocument.Text.Substring(0, startIndex)
 					+ oldText + textDocument.Text.Substring(startIndex + newText.Length);
 				textDocument.EditsCount--;
+				Done = false;
 			}
 		}
 	}

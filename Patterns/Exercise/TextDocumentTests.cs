@@ -6,30 +6,46 @@ namespace Kontur.Courses.Testing.Patterns.Exercise
 	[TestFixture]
 	public class TextDocumentTests
 	{
-		[Test]
-		public void Test()
+		private const string DefaultText = "hello world";
+		private TextDocument doc;
+
+		[SetUp]
+		public void SetUp()
 		{
-			var doc = new TextDocument("hello world");
-			var cmd = doc.MakeReplaceCommand(0, 1, "H");
-			cmd.Do();
+			doc = new TextDocument(DefaultText);
+		}
+
+		[Test]
+		public void TestDo()
+		{
+			doc.Replace(0, 1, "H");
 			Assert.AreEqual("Hello world", doc.Text);
-			var cmd2 = doc.MakeReplaceCommand(6, 5, "all!");
-			cmd2.Do();
-			Assert.AreEqual("Hello all!", doc.Text);
-			Assert.AreEqual(2, doc.EditsCount);
-			cmd2.Undo();
-			Assert.AreEqual(1, doc.EditsCount);
-			cmd.Undo();
+		}
+
+		[Test]
+		public void TestMoreComplexDo()
+		{
+			doc.Replace(0, 1, "H");
+			doc.Replace(0, 5, "hi");
+			doc.Replace(3, 5, "all");
+			Assert.AreEqual("hi all", doc.Text);
+			Assert.AreEqual(3, doc.EditsCount);
+		}
+
+		[Test]
+		public void TestUndo()
+		{
+			var command = doc.Replace(0, 1, "H");
+			command.Undo();
+			Assert.AreEqual(DefaultText.ToLower(), doc.Text);
 			Assert.AreEqual(0, doc.EditsCount);
-			Assert.AreEqual("hello world", doc.Text);
 			try
 			{
-				cmd2.Undo();
-				Assert.Fail("Should not be able to undo command which was not executed before");
+				command.Undo();
+				Assert.Fail("Can't undo twice");
 			}
 			catch (InvalidOperationException)
 			{
-				Console.WriteLine("Exception was thrown!");
 			}
 		}
 	}

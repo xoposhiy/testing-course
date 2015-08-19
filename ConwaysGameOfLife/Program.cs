@@ -14,7 +14,7 @@ namespace ConwaysGameOfLife
 				new Point(7, 1));
 			while (true)
 			{
-				Console.ReadKey();
+				Console.ReadKey(intercept:true);
 				game.Step();
 			}
 		}
