@@ -16,17 +16,19 @@ namespace Kontur.Courses.Testing.Implementations
 			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
 		}
 
-        /**
-        <summary>
-        Частотный словарь добавленных слов. 
-        Слова сравниваются без учета регистра символов. 
-        Порядок — по убыванию частоты слова.
-        При одинаковой частоте — в лексикографическом порядке.
-        </summary>
-        */
-        public IEnumerable<Tuple<int, string>> GetStatistics()
+		/**
+		<summary>
+		Частотный словарь добавленных слов. 
+		Слова сравниваются без учета регистра символов. 
+		Порядок — по убыванию частоты слова.
+		При одинаковой частоте — в лексикографическом порядке.
+		</summary>
+		*/
+		public IEnumerable<Tuple<int, string>> GetStatistics()
 		{
-			return stats.OrderByDescending(kv => kv.Value).ThenBy(kv => kv.Key).Select(kv => Tuple.Create(kv.Value, kv.Key));
+			return stats.OrderByDescending(kv => kv.Value)
+				.ThenBy(kv => kv.Key)
+				.Select(kv => Tuple.Create(kv.Value, kv.Key));
 		}
 	}
 }

@@ -10,6 +10,11 @@
 
 		public readonly int X, Y;
 
+		public Point Add(Point p)
+		{
+			return new Point(p.X + X, p.Y + Y);
+		}
+
 		protected bool Equals(Point other)
 		{
 			return X == other.X && Y == other.Y;
