@@ -1,0 +1,6 @@
+﻿new ProcessReport()
+{
+    Success = False
+    Error = "Outdated data"
+    ProductErrors = new String[]()
+}

@@ -1,4 +1,4 @@
-﻿namespace LegacyCode
+﻿namespace Legacy.Emails
 {
     public enum AccountType
     {

@@ -1,22 +1,32 @@
-﻿namespace LegacyCode
+﻿using System.Text;
+
+namespace Legacy.Emails
 {
 	public class NewRateEmailMessager
 	{
-		public void SendMessage(string customerName, AccountType accountType, decimal newRate)
+		private readonly CustomerRepo repo;
+		private readonly EmailSender emailSender;
+
+		public NewRateEmailMessager(CustomerRepo repo, EmailSender emailSender)
 		{
-			var logger = ManagerKit.Logger;
-			logger.Log("Sending new rate email");
-			logger.Log("server address: " + ((EmailSender) ManagerKit.EmailSender).MailServer);
+			this.repo = repo;
+			this.emailSender = emailSender;
+		}
+
+		public void SendMessage(string customerId, decimal newRate)
+		{
 			var message = new EmailMessage();
+			Customer customer = repo.FindById(customerId);
 
 			message.Subject = "New rate!";
-			var sb = message.Body;
+			var sb = new StringBuilder();
 
-			sb.AppendFormatLine("Dear {0}", customerName);
+
+			sb.AppendFormatLine("Dear {0}", customer.Name);
 			sb.AppendLine();
 
 			sb.Append("We are sending you this message with respect to your ");
-			switch (accountType)
+			switch (customer.AccountType)
 			{
 				case AccountType.Cheque:
 					sb.Append("chequing account");
@@ -33,11 +43,7 @@
 			sb.AppendLine();
 
 
-			if (ManagerKit.Config.IncreaseRate)
-			{
-				newRate *= ManagerKit.Config.IncreaseRateFactor;
-			}
-			switch (accountType)
+			switch (customer.AccountType)
 			{
 				case AccountType.Cheque:
 					sb.AppendFormatLine("The interest rate at which you earn interest has changed to {0}%.",
@@ -59,7 +65,9 @@
 			sb.AppendLine();
 
 			sb.AppendLine("Kind regards - your bank.");
-			ManagerKit.EmailSender.SendMessage(message);
+			message.Body = sb.ToString();
+			emailSender.SendMessage(message);
 		}
 	}
+
 }

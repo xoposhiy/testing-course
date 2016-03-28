@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Kontur.Courses.Testing.Implementations;
 using NUnit.Framework;
+using Shouldly;
 
 namespace Kontur.Courses.Testing
 {
+	[TestFixture]
 	public class WordsStatistics_Tests
 	{
-		public Func<IWordsStatistics> createStat = () => new WordsStatistics_CorrectImplementation(); // меняется на разные реализации при запуске exe
+		public Func<IWordsStatistics> createStat = () => new WordsStatistics();
+			// меняется на разные реализации при запуске exe
+
 		public IWordsStatistics stat;
 
 		[SetUp]
@@ -16,33 +22,20 @@ namespace Kontur.Courses.Testing
 		}
 
 		[Test]
-		public void no_stats_if_no_words()
+		public void Empty_AfterCreation()
 		{
-			CollectionAssert.IsEmpty(stat.GetStatistics());
+			stat.GetStatistics().ShouldBeEmpty();
 		}
 
 		[Test]
-		public void same_word_twice()
+		public void SameWord_CountsOnce()
 		{
-			stat.AddWord("xxx");
-			stat.AddWord("xxx");
-			CollectionAssert.AreEqual(new[] { Tuple.Create(2, "xxx") }, stat.GetStatistics());
+			stat.AddWord("xxxxxxxxxxx");
+			stat.AddWord("xxxxxxxxxxx");
+			stat.GetStatistics().Count().ShouldBe(1);
+			
 		}
-
-		[Test]
-		public void single_word()
-		{
-			stat.AddWord("hello");
-			CollectionAssert.AreEqual(new[] { Tuple.Create(1, "hello") }, stat.GetStatistics());
-		}
-
-		[Test]
-		public void two_same_words_one_other()
-		{
-			stat.AddWord("hello");
-			stat.AddWord("world");
-			stat.AddWord("world");
-			CollectionAssert.AreEqual(new[] { Tuple.Create(2, "world"), Tuple.Create(1, "hello") }, stat.GetStatistics());
-		}
+		// See shouldly docs http://docs.shouldly-lib.net/docs/overview
 	}
+
 }

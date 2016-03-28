@@ -1,0 +1,23 @@
+﻿new ProviderData()
+{
+    ReplaceData = True
+    Products = new ProductData[]()
+    Products[0] = new ProductData()
+    {
+        Name = "143337951"
+        Price = 150666398
+        UnitsCode = "1663795458"
+    }
+    Products[1] = new ProductData()
+    {
+        Name = "1097663221"
+        Price = 1712597933
+        UnitsCode = "1776631026"
+    }
+    Products[2] = new ProductData()
+    {
+        Name = "356393799"
+        Price = 1580828476
+        UnitsCode = "558810388"
+    }
+}

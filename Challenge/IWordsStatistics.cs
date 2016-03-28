@@ -6,7 +6,7 @@ namespace Kontur.Courses.Testing
 	public interface IWordsStatistics
 	{
 		void AddWord(string word);
-		
+
 		/**
 		<summary>
 		Частотный словарь добавленных слов. 

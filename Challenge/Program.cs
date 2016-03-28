@@ -8,21 +8,20 @@ using NUnit.Framework;
 
 namespace Kontur.Courses.Testing
 {
-	class Program
+	internal class Program
 	{
-		static void Main()
+		private static void Main()
 		{
-			if (!CheckTests()) return;
-			var implementations = GetImplementations();
-			CheckIncorrectImplementationsFail(implementations);
+		    CheckTests();
+            var incorrectImplementations = GetIncorrectImplementations();
+			CheckImplementationsFail(incorrectImplementations);
 		}
 
-		private static void CheckIncorrectImplementationsFail(IEnumerable<Type> implementations)
+		private static void CheckImplementationsFail(IEnumerable<Type> implementations)
 		{
 			foreach (var implementation in implementations)
 			{
-				var isCorrectImplementation = implementation == typeof (WordsStatistics_CorrectImplementation);
-				var failed = GetFailedTests(implementation, isCorrectImplementation).ToList();
+				var failed = GetFailedTests(implementation, false).ToList();
 				Console.Write(implementation.Name + "\t");
 				if (failed.Any())
 				{
@@ -33,37 +32,36 @@ namespace Kontur.Courses.Testing
 				else
 				{
 					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine("pass all tests :(");
+					Console.WriteLine("you should write test to kill this incorrect implementation");
 					Console.ForegroundColor = ConsoleColor.Gray;
 				}
 			}
 		}
 
-		private static IEnumerable<Type> GetImplementations()
+		private static IEnumerable<Type> GetIncorrectImplementations()
 		{
-			return 
+			return
 				Assembly.GetExecutingAssembly().GetTypes()
-				.Where(typeof (IWordsStatistics).IsAssignableFrom)
-				.Where(t => !t.IsAbstract && !t.IsInterface)
-				.Where(t => t != typeof(WordsStatistics_CorrectImplementation));
+					.Where(typeof (IWordsStatistics).IsAssignableFrom)
+					.Where(t => !t.IsAbstract && !t.IsInterface)
+					.Where(t => t != typeof (WordsStatistics));
 		}
 
 		private static bool CheckTests()
 		{
 			Console.WriteLine("Check all tests pass with correct implementation...");
-			var failed = GetFailedTests(typeof(WordsStatistics_CorrectImplementation), true).ToList();
+			var failed = GetFailedTests(typeof (WordsStatistics), true).ToList();
 			if (failed.Any())
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Incorrect tests detected: " + string.Join(", ", failed));
-				Console.ForegroundColor = ConsoleColor.Gray;
+                Console.ForegroundColor = ConsoleColor.Gray;
 				return false;
 			}
 			else
 			{
 				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("Tests are OK!");
-				Console.WriteLine();
 				Console.ForegroundColor = ConsoleColor.Gray;
 				return true;
 			}
@@ -80,13 +78,13 @@ namespace Kontur.Courses.Testing
 
 		private static bool RunTestMethod(Type implementationType, MethodInfo testMethod, bool printError)
 		{
-			Func<IWordsStatistics> createImpl = () => (IWordsStatistics)Activator.CreateInstance(implementationType);
-			var testObj = new WordsStatistics_Tests { createStat = createImpl };
-			testObj.SetUp();
-			var timeout = GetTimeout(testMethod);
+			Func<IWordsStatistics> createImpl = () => (IWordsStatistics) Activator.CreateInstance(implementationType);
+			var testObj = new WordsStatistics_Tests {createStat = createImpl};
 			try
 			{
-				Action test = () => testMethod.Invoke(testObj, new object[0]);
+                testObj.SetUp();
+                var timeout = GetTimeout(testMethod);
+                Action test = () => testMethod.Invoke(testObj, new object[0]);
 				if (timeout > 0)
 					RunTestOnOwnThread(timeout, test);
 				else test();
@@ -103,13 +101,13 @@ namespace Kontur.Courses.Testing
 		private static int GetTimeout(MethodInfo method)
 		{
 			return method.GetCustomAttributes<TimeoutAttribute>()
-				.Select(attr => (int)attr.Properties["Timeout"])
+				.Select(attr => (int) attr.Properties["Timeout"])
 				.FirstOrDefault();
 		}
 
 		private static IEnumerable<MethodInfo> GetTestMethods()
 		{
-			var testMethods = typeof(WordsStatistics_Tests).GetMethods(BindingFlags.Instance | BindingFlags.Public)
+			var testMethods = typeof (WordsStatistics_Tests).GetMethods(BindingFlags.Instance | BindingFlags.Public)
 				.Where(m => m.GetCustomAttribute<TestAttribute>() != null);
 			return testMethods;
 		}
@@ -117,8 +115,8 @@ namespace Kontur.Courses.Testing
 		private static void RunTestOnOwnThread(int timeout, Action action)
 		{
 			Exception ex = null;
-			object locker = new object();
-			Thread thread = new Thread(() =>
+			var locker = new object();
+			var thread = new Thread(() =>
 			{
 				try
 				{
@@ -126,7 +124,7 @@ namespace Kontur.Courses.Testing
 				}
 				catch (Exception e)
 				{
-					lock(locker)
+					lock (locker)
 						ex = e;
 				}
 			});

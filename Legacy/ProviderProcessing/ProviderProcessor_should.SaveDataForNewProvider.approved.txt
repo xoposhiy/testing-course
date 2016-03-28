@@ -1,0 +1,6 @@
+﻿new ProcessReport()
+{
+    Success = True
+    Error = "OK"
+    ProductErrors = new String[]()
+}

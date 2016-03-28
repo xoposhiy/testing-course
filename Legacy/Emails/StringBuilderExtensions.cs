@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace LegacyCode
+namespace Legacy.Emails
 {
 	public static class StringBuilderExtensions
 	{

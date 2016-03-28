@@ -1,8 +1,8 @@
 using System;
 
-namespace LegacyCode
+namespace Legacy.Emails
 {
-	public class EmailSender : IEmailSender
+	public class EmailSender
 	{
 		public void SendMessage(EmailMessage message)
 		{

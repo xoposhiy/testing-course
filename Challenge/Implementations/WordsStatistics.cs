@@ -4,13 +4,14 @@ using System.Linq;
 
 namespace Kontur.Courses.Testing.Implementations
 {
-	public class WordsStatistics_CorrectImplementation : IWordsStatistics
+	public class WordsStatistics : IWordsStatistics
 	{
-		private IDictionary<string, int> stats = new Dictionary<string, int>();
+		protected readonly IDictionary<string, int> stats = new Dictionary<string, int>();
 
-		public void AddWord(string word)
+		public virtual void AddWord(string word)
 		{
-			if (string.IsNullOrEmpty(word)) return;
+			if (word == null) throw new ArgumentNullException("word");
+			if (string.IsNullOrWhiteSpace(word)) return;
 			if (word.Length > 10) word = word.Substring(0, 10);
 			int count;
 			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
@@ -24,7 +25,8 @@ namespace Kontur.Courses.Testing.Implementations
 		При одинаковой частоте — в лексикографическом порядке.
 		</summary>
 		*/
-		public IEnumerable<Tuple<int, string>> GetStatistics()
+
+		public virtual IEnumerable<Tuple<int, string>> GetStatistics()
 		{
 			return stats.OrderByDescending(kv => kv.Value)
 				.ThenBy(kv => kv.Key)
