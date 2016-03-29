@@ -12,8 +12,8 @@ namespace Kontur.Courses.Testing
 	{
 		private static void Main()
 		{
-		    CheckTests();
-            var incorrectImplementations = GetIncorrectImplementations();
+			CheckTests();
+			var incorrectImplementations = GetIncorrectImplementations();
 			CheckImplementationsFail(incorrectImplementations);
 		}
 
@@ -55,7 +55,7 @@ namespace Kontur.Courses.Testing
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Incorrect tests detected: " + string.Join(", ", failed));
-                Console.ForegroundColor = ConsoleColor.Gray;
+				Console.ForegroundColor = ConsoleColor.Gray;
 				return false;
 			}
 			else
@@ -82,9 +82,9 @@ namespace Kontur.Courses.Testing
 			var testObj = new WordsStatistics_Tests {createStat = createImpl};
 			try
 			{
-                testObj.SetUp();
-                var timeout = GetTimeout(testMethod);
-                Action test = () => testMethod.Invoke(testObj, new object[0]);
+				testObj.SetUp();
+				var timeout = GetTimeout(testMethod);
+				Action test = () => testMethod.Invoke(testObj, new object[0]);
 				if (timeout > 0)
 					RunTestOnOwnThread(timeout, test);
 				else test();
