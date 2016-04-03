@@ -12,8 +12,8 @@ namespace TestingTools
 			Products = products;
 		}
 
-		public Guid ProviderId { get; }
-		public DateTime Timestamp { get; }
+		public Guid ProviderId { get; private set; }
+		public DateTime Timestamp { get; private set; }
 		public bool ReplaceData { get; set; }
 		public ProductData[] Products { get; set; }
 	}

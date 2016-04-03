@@ -39,7 +39,7 @@ namespace TestingTools
 
 		private void MethodUnderTest(object arg)
 		{
-			if (arg == null) throw new ArgumentNullException(nameof(arg));
+			if (arg == null) throw new ArgumentNullException("arg");
 		}
 	}
 }

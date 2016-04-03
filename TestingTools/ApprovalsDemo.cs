@@ -30,7 +30,7 @@ namespace TestingTools
 
 
 		[Test]
-		public void Test()
+		public void Maintainance()
 		{
 			ApprovalMaintenance.VerifyNoAbandonedFiles();
 		}

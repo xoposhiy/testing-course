@@ -8,8 +8,8 @@ namespace TestingTools
 			Error = error;
 		}
 
-		public bool Success { get; }
-		public string Error { get; }
+		public bool Success { get; private set; }
+		public string Error { get; private set; }
 
 	}
 }

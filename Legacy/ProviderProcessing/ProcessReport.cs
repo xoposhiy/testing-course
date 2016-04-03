@@ -40,7 +40,9 @@ namespace Legacy.ProviderProcessing
 
 		public override string ToString()
 		{
-			return $"Success: {Success}, Error: {Error}, ProductErrors:\r\n{string.Join("\r\n", ProductErrors)}";
+			return string.Format(
+				"Success: {0}, Error: {1}, ProductErrors:\r\n{2}",
+				Success, Error, string.Join("\r\n", ProductErrors));
 		}
 	}
 }
