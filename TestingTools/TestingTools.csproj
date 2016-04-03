@@ -1,38 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76A94A62-261B-4768-95D3-A74C90B13348}</ProjectGuid>
+    <ProjectGuid>{EFC98758-938D-4724-856D-4E16BB7D4E39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Legacy</RootNamespace>
-    <AssemblyName>Legacy</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>TestingTools</RootNamespace>
+    <AssemblyName>TestingTools</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;TESTS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApprovalTests, Version=3.0.0.0, Culture=neutral, PublicKeyToken=11bd7d124fc62e0f, processorArchitecture=MSIL">
@@ -55,31 +51,17 @@
       <HintPath>..\packages\FakeItEasy.1.25.3\lib\net40\FakeItEasy.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.core.interfaces, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.NUnit2.3.41.1\lib\net40\nunit.core.interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.41.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.41.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.NUnit2, Version=3.41.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.NUnit2.3.41.1\lib\net40\Ploeh.AutoFixture.NUnit2.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture, Version=3.43.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.43.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.NUnit2.Addins, Version=3.41.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.NUnit2.3.41.1\lib\net40\Ploeh.AutoFixture.NUnit2.Addins.dll</HintPath>
+    <Reference Include="Ploeh.SemanticComparison, Version=3.43.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SemanticComparison.3.43.0\lib\net40\Ploeh.SemanticComparison.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shouldly, Version=2.6.0.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
@@ -91,39 +73,37 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Emails\Customer.cs" />
-    <Compile Include="Emails\CustomerRepo.cs" />
-    <Compile Include="Emails\ICustomerRepo.cs" />
-    <Compile Include="Emails\AccountType.cs" />
-    <Compile Include="ProviderProcessing\MeasureUnit.cs" />
-    <Compile Include="ProviderProcessing\ProcessReport.cs" />
-    <Compile Include="ProviderProcessing\ProductData.cs" />
-    <Compile Include="ProviderProcessing\ProductsReference.cs" />
-    <Compile Include="ProviderProcessing\ProviderProcessor.cs" />
-    <Compile Include="ProviderProcessing\ProviderData.cs" />
-    <Compile Include="ProviderProcessing\ProviderProcessor_should.cs" />
-    <Compile Include="ProviderProcessing\ProviderRepository.cs" />
-    <Compile Include="ProviderProcessing\Settings.cs" />
-    <Compile Include="ProviderProcessing\UnitsReference.cs" />
-    <Compile Include="Emails\EmailSender.cs" />
-    <Compile Include="Emails\EmailMessage.cs" />
-    <Compile Include="Emails\NewRateEmailMessager.cs" />
+    <Compile Include="DeepEqualDemo.cs" />
+    <Compile Include="FakeItEasyDemo.cs" />
+    <Compile Include="IUserRepo.cs" />
+    <Compile Include="ProcessingReport.cs" />
+    <Compile Include="ProcessReport.cs" />
+    <Compile Include="ProductData.cs" />
+    <Compile Include="ProviderData.cs" />
+    <Compile Include="AutoFixtureDemo.cs" />
+    <Compile Include="ProviderDataProcessor.cs" />
+    <Compile Include="ShouldlyDemo.cs" />
+    <Compile Include="Formatter.cs" />
+    <Compile Include="CombinatorialDemo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Emails\StringBuilderExtensions.cs" />
+    <Compile Include="ApprovalsDemo.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

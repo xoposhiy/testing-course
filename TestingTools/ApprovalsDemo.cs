@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using ApprovalTests;
+using ApprovalTests.Maintenance;
 using ApprovalTests.Reporters;
-using Legacy.ProviderProcessing;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using StatePrinter;
 
-namespace Legacy
+namespace TestingTools
 {
 	[TestFixture]
 	public class ToolsDemo
@@ -18,7 +16,6 @@ namespace Legacy
 		public void TestStringConstructor()
 		{
 			var s = new string('v', 10);
-
 			Approvals.Verify(s);
 		}
 
@@ -26,21 +23,17 @@ namespace Legacy
 		[UseReporter(typeof (DiffReporter))]
 		public void ApproveProductDataWithStateprinter()
 		{
-			var d = new ProductData { Id = Guid.Empty, Name = "Name", Price = 3.14m, UnitsCode = "112" };
+			var data = new ProductData(Guid.Empty, "Name", 3.14m, "items");
 
-			Approvals.Verify(new Stateprinter().PrintObject(d)); //Stateprinter, not StatePrinter!
+			Approvals.Verify(new Stateprinter().PrintObject(data)); //Stateprinter, not StatePrinter!
 		}
+
 
 		[Test]
-		public void GenerateDataWithAutoFixture()
+		public void Test()
 		{
-			var fixture = new Fixture();
-			var data = fixture.Build<ProductData>()
-				.Without(d => d.Id)
-				.Create();
-			Assert.AreEqual(Guid.Empty, data.Id);
+			ApprovalMaintenance.VerifyNoAbandonedFiles();
 		}
-
 
 		[Test]
 		[UseReporter(typeof (DiffReporter))]
@@ -55,7 +48,7 @@ namespace Legacy
 
 			var printer = new Stateprinter();
 			printer.Configuration.Project
-				.Exclude<ProviderData>(d => d.Id, d => d.ProviderId, d => d.Timestamp)
+				.Exclude<ProviderData>(d => d.ProviderId, d => d.Timestamp)
 				.Exclude<ProductData>(d => d.Id);
 			Approvals.Verify(printer.PrintObject(data));
 		}

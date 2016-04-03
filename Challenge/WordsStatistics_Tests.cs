@@ -30,8 +30,8 @@ namespace Kontur.Courses.Testing
 		[Test]
 		public void SameWord_CountsOnce()
 		{
-			stat.AddWord("xxxxxxxxxxx");
-			stat.AddWord("xxxxxxxxxxx");
+			stat.AddWord("xxx");
+			stat.AddWord("xxx");
 			stat.GetStatistics().Count().ShouldBe(1);
 			
 		}

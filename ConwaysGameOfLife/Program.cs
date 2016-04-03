@@ -4,17 +4,15 @@ namespace ConwaysGameOfLife
 {
 	internal static class Program
 	{
-		private static void Main(string[] args)
+		private static void Main()
 		{
-			var ui = new ConsoleUi(20, 20);
-			var game = new ConwaysLife(20, 20, ui);
-			game.ReviveCells(
-				new Point(5, 0), new Point(5, 2),
-				new Point(6, 1), new Point(6, 2),
-				new Point(7, 1));
+			var ui = new ConsoleUi(60, 20);
+			var game = new Game(60, 20, ui);
+			game.Revive(Patterns.GetGlider(new Point(25, 8)));
 			while (true)
 			{
-				Console.ReadKey(intercept:true);
+				var key = Console.ReadKey(intercept:true);
+				if (key.Key == ConsoleKey.Escape) break;
 				game.Step();
 			}
 		}

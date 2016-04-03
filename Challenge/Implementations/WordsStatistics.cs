@@ -6,13 +6,15 @@ namespace Kontur.Courses.Testing.Implementations
 {
 	public class WordsStatistics : IWordsStatistics
 	{
-		protected readonly IDictionary<string, int> stats = new Dictionary<string, int>();
+		protected readonly IDictionary<string, int> stats 
+			= new Dictionary<string, int>();
 
 		public virtual void AddWord(string word)
 		{
 			if (word == null) throw new ArgumentNullException("word");
 			if (string.IsNullOrWhiteSpace(word)) return;
-			if (word.Length > 10) word = word.Substring(0, 10);
+			if (word.Length > 10)
+				word = word.Substring(0, 10);
 			int count;
 			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
 		}

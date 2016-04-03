@@ -2,6 +2,6 @@
 {
 	public interface IReadonlyField
 	{
-		int GetAge(int x, int y);
+		bool IsAlive(int x, int y);
 	}
 }

@@ -3,5 +3,5 @@
     Id = 00000000-0000-0000-0000-000000000000
     Name = "Name"
     Price = 3,14
-    UnitsCode = "112"
+    UnitsCode = "items"
 }

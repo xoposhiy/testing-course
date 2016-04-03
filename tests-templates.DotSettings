@@ -35,10 +35,10 @@ public void TearDown()&#xD;
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Shortcut/@EntryValue">tf</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Description/@EntryValue">NUnit Test Fixture</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Text/@EntryValue">[NUnit.Framework.TestFixture]&#xD;
-public class $Class$_should&#xD;
+public class $Class$_Should&#xD;
 {&#xD;
 	[NUnit.Framework.Test]&#xD;
-	public void $Test$()&#xD;
+	public void $DoSomething_WhenSomething$()&#xD;
 	{&#xD;
 		&#xD;
 	}&#xD;
@@ -56,14 +56,14 @@ public class $Class$_should&#xD;
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=Class/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=Class/Expression/@EntryValue">getFileNameWithoutExtension()</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=Class/Order/@EntryValue">0</s:Int64>
-	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=Test/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=Test/Expression/@EntryValue">constant("Test")</s:String>
-	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=Test/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=DoSomething_WhenSomething/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=DoSomething_WhenSomething/Expression/@EntryValue">constant("DoSomething_WhenSomething")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=13FAEF5AD10371439A650EAFEB60E612/Field/=DoSomething_WhenSomething/Order/@EntryValue">1</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Shortcut/@EntryValue">tt</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Description/@EntryValue">NUnit Test</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Text/@EntryValue">[NUnit.Framework.Test]&#xD;
-public void $Test$()&#xD;
+public void $DoSomething_WhenSomething$()&#xD;
 {&#xD;
 	$END$&#xD;
 }</s:String>
@@ -74,6 +74,6 @@ public void $Test$()&#xD;
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Scope/=B68999B9D6B43E47A02B22C12A54C3CC/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Scope/=B68999B9D6B43E47A02B22C12A54C3CC/Type/@EntryValue">InCSharpTypeMember</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Scope/=B68999B9D6B43E47A02B22C12A54C3CC/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
-	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Field/=Test/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Field/=Test/Expression/@EntryValue">constant("Test")</s:String>
-	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Field/=Test/Order/@EntryValue">0</s:Int64></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Field/=DoSomething_WhenSomething/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Field/=DoSomething_WhenSomething/Expression/@EntryValue">constant("DoSomething_WhenSomething")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=412EA20A1F67EA45AE0C456BBF28DBD3/Field/=DoSomething_WhenSomething/Order/@EntryValue">0</s:Int64></wpf:ResourceDictionary>

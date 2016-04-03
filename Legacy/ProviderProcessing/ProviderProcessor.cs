@@ -14,19 +14,10 @@ namespace Legacy.ProviderProcessing
 		{
 			repo = new ProviderRepository();
 		}
-		public ProviderProcessor(ProviderRepository repo)
-		{
-			this.repo = repo;
-		}
 
 		public ProcessReport ProcessProviderData(string message)
 		{
 			var data = JsonConvert.DeserializeObject<ProviderData>(message);
-			return ProcessProviderData(data);
-		}
-
-		public ProcessReport ProcessProviderData(ProviderData data)
-		{
 			var existingData = repo.FindByProviderId(data.ProviderId);
 			if (existingData != null && data.Timestamp < existingData.Timestamp)
 			{
@@ -65,7 +56,8 @@ namespace Legacy.ProviderProcessing
 			return new ProcessReport(true, "OK");
 		}
 
-		public IEnumerable<Tuple<ProductData, string>> GetProductValidationErrors(ProductData[] data)
+
+		public virtual IEnumerable<Tuple<ProductData, string>> GetProductValidationErrors(ProductData[] data)
 		{
 			var reference = ProductsReference.GetInstance();
 			foreach (var product in data)

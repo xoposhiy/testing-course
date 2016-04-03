@@ -12,13 +12,6 @@ namespace ConwaysGameOfLife
 
 		private readonly int width;
 		private readonly int height;
-		private static readonly ConsoleColor[] colors =
-		{
-			ConsoleColor.Black,  
-			ConsoleColor.DarkGray, 
-			ConsoleColor.Gray, 
-			ConsoleColor.White
-		};
 
 		public void Update(IReadonlyField field)
 		{
@@ -30,8 +23,8 @@ namespace ConwaysGameOfLife
 				{
 					for (int x = 0; x < width; x++)
 					{
-						var age = field.GetAge(x, y);
-						Console.BackgroundColor = colors[Math.Min(age, colors.Length - 1)];
+						var alive = field.IsAlive(x, y);
+						Console.BackgroundColor = alive ? ConsoleColor.Yellow : ConsoleColor.Black;
 						Console.Write(' ');
 					}
 					Console.WriteLine();

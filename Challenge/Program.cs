@@ -12,9 +12,11 @@ namespace Kontur.Courses.Testing
 	{
 		private static void Main()
 		{
-			CheckTests();
-			var incorrectImplementations = GetIncorrectImplementations();
-			CheckImplementationsFail(incorrectImplementations);
+			if (TestsAreValid())
+			{
+				var incorrectImplementations = GetIncorrectImplementations();
+				CheckImplementationsFail(incorrectImplementations);
+			}
 		}
 
 		private static void CheckImplementationsFail(IEnumerable<Type> implementations)
@@ -47,7 +49,7 @@ namespace Kontur.Courses.Testing
 					.Where(t => t != typeof (WordsStatistics));
 		}
 
-		private static bool CheckTests()
+		private static bool TestsAreValid()
 		{
 			Console.WriteLine("Check all tests pass with correct implementation...");
 			var failed = GetFailedTests(typeof (WordsStatistics), true).ToList();

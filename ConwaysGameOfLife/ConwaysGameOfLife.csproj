@@ -61,10 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleUi.cs" />
-    <Compile Include="ConwaysLife.cs" />
-    <Compile Include="ConwaysLife_tests.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Game_tests.cs" />
     <Compile Include="IGameUi.cs" />
     <Compile Include="IReadonlyField.cs" />
+    <Compile Include="Patterns.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
