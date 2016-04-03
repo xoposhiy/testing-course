@@ -109,7 +109,7 @@
     <Compile Include="ProviderProcessing\ProductsReference.cs" />
     <Compile Include="ProviderProcessing\ProviderProcessor.cs" />
     <Compile Include="ProviderProcessing\ProviderData.cs" />
-    <Compile Include="ProviderProcessing\ProviderProcessor_should.cs" />
+    <Compile Include="ProviderProcessing\ProviderProcessor_Should.cs" />
     <Compile Include="ProviderProcessing\ProviderRepository.cs" />
     <Compile Include="ProviderProcessing\Settings.cs" />
     <Compile Include="ProviderProcessing\UnitsReference.cs" />
