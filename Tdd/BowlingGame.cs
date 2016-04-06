@@ -26,10 +26,10 @@ namespace Kontur.Courses.Testing.Tdd
 
 
 	[TestFixture]
-	public class BowlingGame_GetScore_should
+	public class BowlingGame_should
 	{
 		[Test]
-		public void returnZero_beforeAnyRolls()
+		public void HaveEmptyFrame_BeforeAnyRolls()
 		{
 			//TODO
 		}
