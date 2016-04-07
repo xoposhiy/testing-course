@@ -1,10 +1,13 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
+using System.Text;
+using System.Xml;
 using Kontur.Courses.Testing.Implementations;
-using NUnit.Framework;
+using NUnit.Engine;
 
 namespace Kontur.Courses.Testing
 {
@@ -69,96 +72,44 @@ namespace Kontur.Courses.Testing
 			}
 		}
 
-		private static IEnumerable<string> GetFailedTests(Type implementationType, bool printError)
-		{
-			foreach (var testMethod in GetTestMethods())
-			{
-				if (!RunTestMethod(implementationType, testMethod, printError))
-					yield return testMethod.Name;
-			}
-		}
+	    private static IEnumerable<string> GetFailedTests(Type implementationType, bool printError)
+	    {
+            var assemblyFileName = $"{implementationType.Name}-{Guid.NewGuid()}.dll";
+            var parameters = new CompilerParameters
+            {
+                GenerateExecutable = false,
+                OutputAssembly = assemblyFileName,
+            };
+	        parameters.ReferencedAssemblies.Add("System.dll");
+	        parameters.ReferencedAssemblies.Add("System.Core.dll");
+	        parameters.ReferencedAssemblies.Add("Shouldly.dll");
+	        parameters.ReferencedAssemblies.Add("nunit.framework.dll");
 
-		private static bool RunTestMethod(Type implementationType, MethodInfo testMethod, bool printError)
-		{
-			Func<IWordsStatistics> createImpl = () => (IWordsStatistics) Activator.CreateInstance(implementationType);
-			var testObj = new WordsStatistics_Tests {createStat = createImpl};
-			try
-			{
-				testObj.SetUp();
-				var timeout = GetTimeout(testMethod);
-				Action test = () => testMethod.Invoke(testObj, new object[0]);
-				if (timeout > 0)
-					RunTestOnOwnThread(timeout, test);
-				else test();
-			}
-			catch (Exception e)
-			{
-				if (printError)
-					Console.WriteLine(e.InnerException);
-				return false;
-			}
-			return true;
-		}
+            var iterfaceSource = File.ReadAllText("..\\..\\IWordsStatistics.cs");
+	        var badImplsSource = File.ReadAllText("..\\..\\Implementations\\DoNotOpen.cs");
+	        var correctImplSource = File.ReadAllText("..\\..\\Implementations\\WordsStatistics.cs");
+	        var testsSource = File.ReadAllText("..\\..\\WordsStatistics_Tests.cs");
+	        testsSource = testsSource.Replace("public Func<IWordsStatistics> createStat = () => new WordsStatistics();",
+                                             $"public Func<IWordsStatistics> createStat = () => new {implementationType.Name}();");
 
-		private static int GetTimeout(MethodInfo method)
-		{
-			return method.GetCustomAttributes<TimeoutAttribute>()
-				.Select(attr => (int) attr.Properties["Timeout"])
-				.FirstOrDefault();
-		}
+            var compileResult = CodeDomProvider.CreateProvider("CSharp").CompileAssemblyFromSource(parameters, iterfaceSource, badImplsSource, correctImplSource, testsSource);
+	        if (compileResult.Errors.HasErrors)
+	        {
+                var compilerOutput = new StringBuilder();
+                foreach (var s in compileResult.Output)
+                    compilerOutput.AppendLine(s);
+                throw new InvalidOperationException($"Compilation failed: {compilerOutput}");
+	        }
 
-		private static IEnumerable<MethodInfo> GetTestMethods()
-		{
-			var testMethods = typeof (WordsStatistics_Tests).GetMethods(BindingFlags.Instance | BindingFlags.Public)
-				.Where(m => m.GetCustomAttribute<TestAttribute>() != null);
-			return testMethods;
-		}
-
-		private static void RunTestOnOwnThread(int timeout, Action action)
-		{
-			Exception ex = null;
-			var locker = new object();
-			var thread = new Thread(() =>
-			{
-				try
-				{
-					action();
-				}
-				catch (Exception e)
-				{
-					lock (locker)
-						ex = e;
-				}
-			});
-			thread.Start();
-			thread.Join(timeout);
-			if (!thread.IsAlive)
-			{
-				lock (locker)
-					if (ex != null)
-						throw ex;
-				return;
-			}
-			Kill(thread);
-			thread.Join();
-			throw new TimeoutException();
-		}
-
-		public static void Kill(Thread thread)
-		{
-			try
-			{
-				thread.Abort();
-			}
-			catch (ThreadStateException)
-			{
-#pragma warning disable 618
-				thread.Resume();
-#pragma warning restore 618
-			}
-
-			if ((thread.ThreadState & ThreadState.WaitSleepJoin) != 0)
-				thread.Interrupt();
-		}
+            using (var testEngine = TestEngineActivator.CreateInstance())
+	        {
+	            var testRunner = testEngine.GetRunner(new TestPackage(assemblyFileName));
+                var emptyFilter = testEngine.Services.GetService<ITestFilterService>().GetTestFilterBuilder().GetFilter();
+                var report = testRunner.Run(null, emptyFilter);
+                File.WriteAllText($"{assemblyFileName}.nunitReport.xml", report.OuterXml);
+                foreach (var failedTestCase in report.SelectNodes("//test-case[@result='Failed']"))
+	                yield return ((XmlNode) failedTestCase).Attributes["methodname"].Value;
+	        }
+        }
 	}
 }
