@@ -9,11 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patterns", "Patterns\Patter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tdd", "Tdd\Tdd.csproj", "{AD0F018A-732E-4074-8527-AB2EEC8D0BF3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{34AAED9F-A157-44DF-ADA2-705781A1C4E4}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConwaysGameOfLife", "ConwaysGameOfLife\ConwaysGameOfLife.csproj", "{ACBC03B3-A778-4F66-9D6D-43C77D64CC23}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Legacy", "Legacy\Legacy.csproj", "{76A94A62-261B-4768-95D3-A74C90B13348}"

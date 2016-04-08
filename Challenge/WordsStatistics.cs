@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace Kontur.Courses.Testing.Implementations
 {
 	public class WordsStatistics : IWordsStatistics
