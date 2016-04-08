@@ -10,6 +10,7 @@ using StatePrinter;
 namespace TestingTools
 {
 	[TestFixture]
+	[Explicit]
 	public class DeepEqualDemo
 	{
 		private ProviderData data1;

@@ -11,6 +11,7 @@ namespace TestingTools
 		public class UserManager_Create_Should
 		{
 			[Test]
+			[Explicit]
 			public void SaveNewUserToUserRepo_WhenEverythingIsValid()
 			{
 				//Arrange
