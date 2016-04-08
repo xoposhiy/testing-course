@@ -7,7 +7,7 @@ namespace Kontur.Courses.Testing.Implementations
 
 	#region Не подглядывать!
 
-	public class WordsStatistics0 : WordsStatistics
+	public class WordsStatisticsL : WordsStatistics
 	{
 		public override void AddWord(string word)
 		{
@@ -15,14 +15,22 @@ namespace Kontur.Courses.Testing.Implementations
 			if (string.IsNullOrWhiteSpace(word)) return;
 			word = word.Substring(0, 10);
 			int count;
-			stats[word.ToLower()] =
-				stats.TryGetValue(word.ToLower(), out count)
-					? count + 1
-					: 1;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
 		}
 	}
 
-	public class WordsStatistics1 : WordsStatistics
+	public class WordsStatisticsL2 : WordsStatistics
+	{
+		public override void AddWord(string word)
+		{
+			if (word == null) throw new ArgumentNullException("word");
+			if (string.IsNullOrWhiteSpace(word)) return;
+			int count;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
+		}
+	}
+
+	public class WordsStatisticsL3 : WordsStatistics
 	{
 		public override void AddWord(string word)
 		{
@@ -31,14 +39,12 @@ namespace Kontur.Courses.Testing.Implementations
 			if (word.Length > 10) word = word.Substring(0, 10);
 			else if (word.Length > 5) word = word.Substring(0, word.Length - 1);
 			int count;
-			stats[word.ToLower()] =
-				stats.TryGetValue(word.ToLower(), out count)
-					? count + 1
-					: 1;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
+
 		}
 	}
 
-	public class WordsStatistics2 : WordsStatistics
+	public class WordsStatisticsL4 : WordsStatistics
 	{
 		public override void AddWord(string word)
 		{
@@ -46,14 +52,11 @@ namespace Kontur.Courses.Testing.Implementations
 			if (string.IsNullOrWhiteSpace(word)) return;
 			if (word.Length - 1 > 10) word = word.Substring(0, 10);
 			int count;
-			stats[word.ToLower()] =
-				stats.TryGetValue(word.ToLower(), out count)
-					? count + 1
-					: 1;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
 		}
 	}
 
-	public class WordsStatistics3 : WordsStatistics
+	public class WordsStatisticsC : WordsStatistics
 	{
 		public override void AddWord(string word)
 		{
@@ -66,59 +69,8 @@ namespace Kontur.Courses.Testing.Implementations
 		}
 	}
 
-	public class WordsStatistics4 : WordsStatistics
-	{
-		public override void AddWord(string word)
-		{
-			if (word == null) throw new ArgumentNullException("word");
-			if (string.IsNullOrWhiteSpace(word)) return;
-			int count;
-			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
-		}
-	}
 
-	public class WordsStatistics5 : IWordsStatistics
-	{
-		private readonly List<string> words = new List<string>();
-
-		public void AddWord(string word)
-		{
-			if (word == null) throw new ArgumentNullException("word");
-			if (string.IsNullOrWhiteSpace(word)) return;
-			if (word.Length > 10) word = word.Substring(0, 10);
-			words.Add(word.ToLower());
-		}
-
-		public IEnumerable<Tuple<int, string>> GetStatistics()
-		{
-			return words
-				.GroupBy(w => w)
-				.OrderByDescending(g => g.Count())
-				.Select(g => Tuple.Create(g.Count(), g.Key));
-		}
-	}
-
-	public class WordsStatistics6 : WordsStatistics
-	{
-		public override IEnumerable<Tuple<int, string>> GetStatistics()
-		{
-			return stats.OrderByDescending(kv => kv.Key)
-				.ThenBy(kv => kv.Key)
-				.Select(kv => Tuple.Create(kv.Value, kv.Key));
-		}
-	}
-
-	public class WordsStatistics7 : WordsStatistics
-	{
-		public override IEnumerable<Tuple<int, string>> GetStatistics()
-		{
-			return stats.OrderByDescending(kv => kv.Value)
-				.ThenByDescending(kv => kv.Key)
-				.Select(kv => Tuple.Create(kv.Value, kv.Key));
-		}
-	}
-
-	public class WordsStatistics8 : WordsStatistics
+	public class WordsStatisticsE : WordsStatistics
 	{
 		public override void AddWord(string word)
 		{
@@ -126,6 +78,80 @@ namespace Kontur.Courses.Testing.Implementations
 			if (word.Length > 10) word = word.Substring(0, 10);
 			int count;
 			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
+		}
+	}
+
+	public class WordsStatisticsE2 : WordsStatistics
+	{
+		public override void AddWord(string word)
+		{
+			if (string.IsNullOrWhiteSpace(word)) return;
+			if (word.Length > 10) word = word.Substring(0, 10);
+			int count;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
+		}
+	}
+	public class WordsStatisticsE3 : WordsStatistics
+	{
+		public override void AddWord(string word)
+		{
+			if (word == null) throw new ArgumentNullException("word");
+			if (word.Length > 10) word = word.Substring(0, 10);
+			if (string.IsNullOrWhiteSpace(word)) return;
+			int count;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
+		}
+	}
+
+
+	public class WordsStatisticsE4 : WordsStatistics
+	{
+		public override void AddWord(string word)
+		{
+			if (word.Length == 0 || word.All(char.IsWhiteSpace)) return;
+			if (word.Length > 10) word = word.Substring(0, 10);
+			int count;
+			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
+		}
+	}
+
+	public class WordsStatisticsO1 : WordsStatistics
+	{
+		public override IEnumerable<Tuple<int, string>> GetStatistics()
+		{
+			return base.GetStatistics().OrderByDescending(t => t.Item2);
+		}
+	}
+
+	public class WordsStatisticsO2 : WordsStatistics
+	{
+		public override IEnumerable<Tuple<int, string>> GetStatistics()
+		{
+			return base.GetStatistics().OrderByDescending(t => t.Item1);
+		}
+	}
+
+	public class WordsStatisticsO3 : WordsStatistics
+	{
+		public override IEnumerable<Tuple<int, string>> GetStatistics()
+		{
+			return base.GetStatistics().OrderBy(t => t.Item1);
+		}
+	}
+
+	public class WordsStatisticsO4 : WordsStatistics
+	{
+		public override IEnumerable<Tuple<int, string>> GetStatistics()
+		{
+			return base.GetStatistics().OrderBy(t => t.Item2);
+		}
+	}
+
+	public class WordsStatisticsO5 : WordsStatistics
+	{
+		public override IEnumerable<Tuple<int, string>> GetStatistics()
+		{
+			return base.GetStatistics().OrderByDescending(t => t);
 		}
 	}
 
@@ -151,62 +177,11 @@ namespace Kontur.Courses.Testing.Implementations
 		}
 	}
 
-	public class WordsStatisticsA : WordsStatistics
-	{
-		public override void AddWord(string word)
-		{
-			if (string.IsNullOrWhiteSpace(word)) return;
-			if (word.Length > 10) word = word.Substring(0, 10);
-			int count;
-			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
-		}
-	}
-	public class WordsStatisticsB : WordsStatistics
-	{
-		public override void AddWord(string word)
-		{
-			if (word == null) throw new ArgumentNullException("word");
-			if (word.Length > 10) word = word.Substring(0, 10);
-			if (string.IsNullOrWhiteSpace(word)) return;
-			int count;
-			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
-		}
-	}
-
-
-	public class WordsStatisticsC : WordsStatistics
-	{
-		public override IEnumerable<Tuple<int, string>> GetStatistics()
-		{
-			return base.GetStatistics().OrderBy(t => t.Item2);
-		}
-	}
-
-	public class WordsStatisticsD : WordsStatistics
-	{
-		public override IEnumerable<Tuple<int, string>> GetStatistics()
-		{
-			return base.GetStatistics().OrderBy(t => t);
-		}
-	}
-
-	public class WordsStatisticsE : WordsStatistics
-	{
-		public override void AddWord(string word)
-		{
-			if (word == null) throw new ArgumentException();
-			if (string.IsNullOrWhiteSpace(word)) return;
-			if (word.Length > 10) word = word.Substring(0, 10);
-			int count;
-			stats[word.ToLower()] = stats.TryGetValue(word.ToLower(), out count) ? count + 1 : 1;
-		}
-	}
-
-	public class WordsStatisticsSTA : IWordsStatistics
+	public class WordsStatistics_STA : IWordsStatistics
 	{
 		private static readonly IDictionary<string, int> stats = new Dictionary<string, int>();
 
-		public WordsStatisticsSTA()
+		public WordsStatistics_STA()
 		{
 			stats.Clear();
 		}
@@ -226,7 +201,7 @@ namespace Kontur.Courses.Testing.Implementations
 		}
 	}
 
-	public class WordsStatistics12347 : IWordsStatistics
+	public class WordsStatistics_123 : IWordsStatistics
 	{
 		private const int MAX_SIZE = 12347;
 
@@ -252,7 +227,7 @@ namespace Kontur.Courses.Testing.Implementations
 		}
 	}
 
-	public class WordsStatisticsQWE : IWordsStatistics
+	public class WordsStatistics_QWE : IWordsStatistics
 	{
 		private readonly IDictionary<string, int> stats = new Dictionary<string, int>();
 
@@ -286,7 +261,7 @@ namespace Kontur.Courses.Testing.Implementations
 		}
 	}
 
-	public class WordsStatistics98 : IWordsStatistics
+	public class WordsStatistics_998 : IWordsStatistics
 	{
 		private readonly List<Tuple<int, string>> stats = new List<Tuple<int, string>>();
 
@@ -310,7 +285,7 @@ namespace Kontur.Courses.Testing.Implementations
 		}
 	}
 
-	public class WordsStatistics99 : IWordsStatistics
+	public class WordsStatistics_999 : IWordsStatistics
 	{
 		private readonly HashSet<string> usedWords = new HashSet<string>(); 
 		private readonly List<Tuple<int, string>> stats = new List<Tuple<int, string>>();

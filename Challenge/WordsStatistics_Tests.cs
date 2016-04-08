@@ -10,15 +10,18 @@ namespace Kontur.Courses.Testing
 	[TestFixture]
 	public class WordsStatistics_Tests
 	{
-		public Func<IWordsStatistics> createStat = () => new WordsStatistics();
+		public virtual IWordsStatistics CreateStat()
+		{
 			// меняется на разные реализации при запуске exe
+			return new WordsStatistics();
+		}
 
 		public IWordsStatistics stat;
 
 		[SetUp]
 		public void SetUp()
 		{
-			stat = createStat();
+			stat = CreateStat();
 		}
 
 		[Test]
@@ -30,11 +33,11 @@ namespace Kontur.Courses.Testing
 		[Test]
 		public void SameWord_CountsOnce()
 		{
-			stat.AddWord("xxx");
-			stat.AddWord("xxx");
+			stat.AddWord("xxxxxxxxxx");
+			stat.AddWord("xxxxxxxxxx");
 			stat.GetStatistics().Count().ShouldBe(1);
-			
 		}
+
 		// See shouldly docs http://docs.shouldly-lib.net/docs/overview
 	}
 
